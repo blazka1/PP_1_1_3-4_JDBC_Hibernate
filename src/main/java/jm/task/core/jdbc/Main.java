@@ -3,34 +3,19 @@ package jm.task.core.jdbc;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
 
 public class Main {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
-
-        // Создание таблицы User(ов)
         userService.createUsersTable();
-
-        // Добавление 4 User(ов) в таблицу
-        userService.saveUser("John", "Doe", (byte) 30);
-        System.out.println("User с именем – John добавлен в базу данных");
-        userService.saveUser("Jane", "Doe", (byte) 25);
-        System.out.println("User с именем – Jane добавлен в базу данных");
-        userService.saveUser("Jim", "Beam", (byte) 35);
-        System.out.println("User с именем – Jim добавлен в базу данных");
-        userService.saveUser("Jack", "Daniels", (byte) 40);
-        System.out.println("User с именем – Jack добавлен в базу данных");
-
-        // Получение всех User из базы и вывод в консоль
-        System.out.println("Список всех пользователей:");
-        for (User user : userService.getAllUsers()) {
-            System.out.println(user);
-        }
-
-        // Очистка таблицы User(ов)
+        userService.saveUser("Random1", "Randomov1", (byte) 11);
+        userService.saveUser("Random2", "Randomov2", (byte) 22);
+        userService.saveUser("Random3", "Randomov3", (byte) 33);
+        userService.saveUser("Random4", "Randomov4", (byte) 44);
+        userService.getAllUsers().forEach(System.out::println);
         userService.cleanUsersTable();
-
-        // Удаление таблицы
         userService.dropUsersTable();
-    }
+        Util.getSessionFactory().close();
+}
 }
